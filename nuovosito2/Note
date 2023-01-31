@@ -1,0 +1,197 @@
+
+
+composer create-project laravel/laravel nuovosito2
+php artisan --version
+php --version
+.env aggiornare nome database
+download bootstrap (css e js), mettile nella cartella public e lascia solo: bootstrap.css (css) e bootstrap.bundle.js (js).
+nella cartella public metti il file style.css per le classi custom.
+php artisan make:model Messaggi -m
+                                                        modifica campi del model e della tabella x messaggis
+                                                        modifica campi del model x users
+php artisan migrate
+php artisan make:controller AuthController
+php artisan make:controller SitoController
+
+
+
+
+Create the directory and some blade view, see the following:
+Make Directory Name Companies
+index.blade.php
+create.blade.php
+edit.blade.php
+aggiornare i suddeti files
+
+php artisan serve
+http://127.0.0.1:8000/companies
+
+php artisan cache:clear
+php artisan route:clear
+php artisan route:cache
+php artisan config:clear
+php artisan view:clear
+php artisan optimize
+
+installa composer
+composer create-project laravel/laravel corso
+php artisan --version
+php artisan serve
+php artisan make:migration create_notes_table
+php artisan migrate
+			php artisan db:seed
+			php artisan migrate:refresh
+php artisan make:model Notes
+php artisan migrate:refresh --seed
+php artisan make:factory NotesFactory
+php artisan migrate:refresh
+php artisan make:component PostCard
+php artisan make:controller NoteController (aggiungi "Controller")
+php artisan make:controller Admin/PhotoController --model Photo --resource
+php artisan make:model Contact -m     crea modello e tabella contemporaneamente
+php artisan make:controller messagesController --model messages --resource
+( crea controller per gestire il model "messages" del database e per fornirci i metodi CRUD "--resouces")
+php artisan make:migration change_name_id --table="users"
+
+
+dati server locale  ----------------------------------------------------
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravelcrud
+DB_USERNAME=root
+DB_PASSWORD=
+
+dati per Siteground  --------------------------------------------------
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=db4oae0advixoq
+DB_USERNAME=uouhkrmrandbh
+DB_PASSWORD=Vettore38866
+
+pagination ------------------------------------------------------------
+su views di stampa:
+{!! $companies->withQueryString()->links('pagination::bootstrap-4') !!}
+su controller:
+   $companies = Company::orderBy('id','desc')->paginate(5);
+   return view('Companies.index', compact('companies'));
+
+DEPLOY ---------------------------------------------------------------------------------------------
+1) modifica .env (credenziali) dell'app da deploiare (SIA DB CHE RECAPTCHA)
+2) upload cartella app da deploiare, nella cartella "public.html" del server
+3) upload del contenuto della cartella public della app deploiata, nella cartella "public.html" del server
+4) modificare gli indirizzi all"interno del file index.php.
+   in particolare, sostituisci i due puntini con il nome della cartella deploiata.
+   MA QUESTO LO FACCIO SOLO LA PRIMA VOLTA
+5) potrebbe essere necessario cambiare la versione php del server
+6) ripristina .env (credenziali) dell'app da cui hai deploiato.
+
+public function up()
+    {
+        Schema::create('messaggis', function (Blueprint $table) {
+        $table->id();
+        $table->string('nome');
+        $table->string('email');
+        $table->longText('messaggio');
+        $table->unsignedBigInteger('user_id');
+        $table->foreign('user_id')->references('id')->on('users');
+        $table->timestamps();
+        });
+    }
+
+
+    use HasFactory;
+    protected  $fillable = ['nome', 'email', 'messaggio'];
+
+    public function user(){
+        return $this->belongsTo(User::class, 'id');
+    }
+
+
+
+    public function messaggi()
+    {
+        return $this->hasMany(Messaggi::class,  'user_id');
+    }
+
+    ---------------------------------- RECAPTCHA ---------------------------------------------
+    https://www.itsolutionstuff.com/post/how-to-add-google-recaptcha-v2-in-laravel-9example.html
+
+    inserire ella form :
+    1) <script src='https://www.google.com/recaptcha/api.js'></script>
+    2) questo : {{ csrf_field() }} sostituisce : @csrf
+    3) <div class="form-group mt-2">
+            <div class="g-recaptcha" data-sitekey="{{ env('GOOGLE_RECAPTCHA_KEY') }}"></div>
+            @if ($errors->has('g-recaptcha-response'))
+                <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
+            @endif
+        </div>
+    inserire nella funzione di login:
+    public function store(Request $request){
+        $formFields = $request->validate([
+            'name' => ['required',  'min:5'],
+            'email' => ['required', 'email', Rule::unique('users',  'email')],
+            'password' => 'required|confirmed|min:8',
+            'g-recaptcha-response' => ['required', new ReCaptcha]  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    4) php artisan make:rule ReCaptcha
+    <?php
+
+    namespace App\Rules;
+
+    use Illuminate\Contracts\Validation\Rule;
+    use Illuminate\Support\Facades\Http;
+
+    class ReCaptcha implements Rule
+    {
+        /**
+         * Create a new rule instance.
+         *
+         * @return void
+         */
+        public function __construct()
+        {
+
+        }
+        /**
+         * Determine if the validation rule passes.
+         *
+         * @param  string  $attribute
+         * @param  mixed  $value
+         * @return bool
+         */
+        public function passes($attribute, $value)
+        {
+            $response = Http::get("https://www.google.com/recaptcha/api/siteverify",[
+                'secret' => env('GOOGLE_RECAPTCHA_SECRET'),
+                'response' => $value
+            ]);
+
+            return $response->json()["success"];
+        }
+        /**
+         * Get the validation error message.
+         *
+         * @return string
+         */
+        public function message()
+        {
+            return 'The google recaptcha is required.';
+        }
+    }
+
+
+    ---------------------------------- PHPMAILER ---------------------------------------------
+    https://laraveltuts.com/how-to-send-email-using-phpmailer-in-laravel-9/
+    ho eseguito:
+    1) composer clear-cache
+    2) composer require phpmailer/phpmailer
+
+    ---------------------------------- DOMPDF ---------------------------------------------
+    https://dev.to/zanysoft/how-to-create-laravel-pdf-file-and-download-5038
+    https://www.itsolutionstuff.com/post/laravel-9-pdf-laravel-9-generate-pdf-file-using-dompdfexample.html
+    composer create-project laravel/laravel example-app
+    composer require barryvdh/laravel-dompdf
+    php artisan make:controller PDFController
+

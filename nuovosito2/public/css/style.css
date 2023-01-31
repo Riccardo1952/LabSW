@@ -1,0 +1,124 @@
+.container {
+    max-width: 80%;
+ }
+ body {
+     height: 100vh;
+ }
+ #idHeader {
+     height: 10vh;
+     max-width: 80%;
+     background-color: #DEF1F2;
+     margin-left: 10%;
+ }
+ #idContent {
+     height: 79vh;
+     background-color: #3AAFA9;
+     margin-top: 6px;
+ }
+ #idContent1 {
+     background-color: #3AAFA9;
+     display: grid;
+     margin-top: 200px;
+ }
+ #idContent2 {
+     background-color: #3AAFA9;
+ }
+ #idContent3 {
+     height: 100%;
+     background-color: #3AAFA9;
+ }
+ #idContent4 {
+     width: 38%;
+     margin-right: auto;
+     margin-left: auto;
+     margin-top: 200px;
+     background-color: #DEF1F2;
+ }
+ #idContent5 {
+     height: 100%;
+     background-color: #3AAFA9;
+ }
+ #idContent6 {
+     width: 38%;
+     margin-left: 31%;
+     position: absolute;
+     margin-top: 200px;
+     background-color: #DEF1F2;
+ }
+ #idFooter {
+     height: 10vh;
+     max-width: 80%;
+     background-color: #2B7A78;
+     text-align: center;
+     margin-left: 10%;
+     position: absolute;
+     bottom: 0;
+ }
+
+ .size5rem {
+     font-size: 1.3rem;
+ }
+ .size1rem {
+     font-size: 1rem;
+ }
+
+ #idDivFace {
+     width: 200px;
+     height: 200px;
+     overflow: hidden;
+     justify-self: center; /* Abbinato al display-grid del contenitore */
+ }
+ #faceImg {
+     height: 200px;
+ }
+ #id001 {
+     font-size: 1.5rem;
+     text-align: center;
+ }
+ #id002 {
+     font-size: 2.2rem;
+     text-align: center;
+     color:darkblue;
+ }
+ #id003 {
+     justify-self: center;
+ }
+ /* show.blade.php */
+ .btn-send {
+     max-width: 300px;
+ }
+ #CV {
+     height: 40px;
+ }
+ #idCV0 {
+     font-family: 'M PLUS Rounded 1c', sans-serif;
+     font-size: 2rem;
+     color:white;
+     text-align: center;
+     background-color: #03746f;
+     height: 10vh;
+ }
+ #idCV1 {
+     font-family: 'M PLUS Rounded 1c', sans-serif;
+     font-size: 2rem;
+     color:#16045c;
+     text-align: center;
+     background-color: #07f4e8;
+     height: 69vh;
+ }
+ #idCV2 {
+     font-family: 'M PLUS Rounded 1c', sans-serif;
+     font-size: 1rem;
+     color:#210493;
+     background-color: #03a59d;
+     height: 69vh;
+ }
+ .idprg1 {
+     height: 40px;
+     width: 70%;
+ }
+ .color210493 {
+     color:#210493;
+ }
+
+

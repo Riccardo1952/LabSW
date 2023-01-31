@@ -1,0 +1,14 @@
+crea repository in github: Riccardo1952/LabSW
+sul terminale di VisualStudioCode:
+apri cartella GIT
+mkdir GITRiccardo1952Labsw
+apri cartella GITRiccardo1952Labsw
+git init
+aggiungi file Playlist.txt
+git status
+git add .
+git commit -m "Commitaaaammgghhmm"
+git log --oneline
+git remote add origin https://github.com/Riccardo1952/LabSW.git.git
+git branch -M main
+git push -u origin main
