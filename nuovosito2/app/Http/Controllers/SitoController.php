@@ -76,55 +76,11 @@ class SitoController extends Controller
         $message = $data['message'];
         $from = session('emailLoggato');
 
-        // Mail::send(['text'=>'email'], ['name' => $message], function($message) use($to, $subject, $from){
-        //     $message->to($to)->subject($subject);
-        //     $message->from($from);
-        // });
         Mail::raw($message, function ($message) use ($to, $subject, $from) {
             $message->from($from)
                     ->to($to)
-                    ->subject($subject)
-                    ->attach('prova.pdf');
+                    ->subject($subject);
         });
         return view('contents/sendMailMessage');
-    }
-    public function SendCV(Request $request){
-        $mail = new PHPMailer(true);
-        try {
-            $to = session('emailLoggato');
-            $subject = "Curriculum Riccardo Ributtini";
-            $txt = "Le invio il mio curriculum che mi ha gentilmente richiesto." . "\r\n";
-            $headers = "From: riccardoributtini@gmail.com" . "\r\n";
-            $mail = new PHPMailer;
-        /*     Nel codice che ho fornito, la proprietà "SMTPDebug" è impostata su 0, il che significa
-               che non verranno visualizzati messaggi di debug. Se si desidera visualizzare i messaggi di debug, è possibile
-               impostare il valore di "SMTPDebug" su 1 o 2.
-               Impostando "SMTPDebug" su 1, verranno visualizzati solo i messaggi di errore.
-               Impostando "SMTPDebug" su 2, verranno visualizzati sia i messaggi di errore che quelli di informazione. */
-            $mail->SMTPDebug = 0;
-            $mail->isSMTP();
-            $mail->Host = 'smtp.sendgrid.net';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'apikey';
-            $mail->Password = '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';
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port = 465;
-
-            $mail->CharSet = 'UTF-8';
-            $mail->Encoding = 'base64';
-
-            $mail->setFrom('riccardoributtini@gmail.com', 'riccardo ributtini');
-            $mail->addAddress($to);
-
-            $mail->isHTML(true);
-            $mail->Subject = $subject;
-            $mail->Body    = $txt;
-            $mail->addAttachment('prova.pdf');
-            $mail->send();
-            return view('contents/sendCVMessage');
-        } catch (Exception $e) {
-            return view('contents/sendCVMessageErr');
-            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        }
     }
 }

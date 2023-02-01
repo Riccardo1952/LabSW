@@ -21,10 +21,6 @@ Route::resource('messaggis', SitoController::class); /* messaggis è il nome del
 Route::get('show4',[SitoController::class,'show4'])->name('show4');
 Route::get('/sendMail',[SitoController::class,'sendMail'])->name('sendMail');
 Route::post('emailSend',[SitoController::class,'emailSend'])->name('emailSend');
-Route::get('sendCV',[SitoController::class,'sendCV'])->name('sendCV');
-Route::post('CVSend',[SitoController::class,'CVSend'])->name('CVSend');
-
-
 
 Route::get('generate-pdf', [PDFController::class, 'generatePDF'])->name('generatepdf');
 Route::get('generate-pdf2', [PDFController::class, 'generatePDF2'])->name('generatepdf2');

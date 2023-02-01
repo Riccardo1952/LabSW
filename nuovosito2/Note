@@ -83,7 +83,6 @@ DEPLOY -------------------------------------------------------------------------
 3) upload del contenuto della cartella public della app deploiata, nella cartella "public.html" del server
 4) modificare gli indirizzi all"interno del file index.php.
    in particolare, sostituisci i due puntini con il nome della cartella deploiata.
-   MA QUESTO LO FACCIO SOLO LA PRIMA VOLTA
 5) potrebbe essere necessario cambiare la versione php del server
 6) ripristina .env (credenziali) dell'app da cui hai deploiato.
 

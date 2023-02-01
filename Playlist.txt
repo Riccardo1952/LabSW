@@ -23,3 +23,7 @@ git remote add origin https://github.com/Riccardo1952/LabSW.git
             error: remote origin already exists. <----------------- è solo una segnalazione
 git branch -M main
 git push -u origin main
+
+
+in .git o aggiunto .gitignore per ignorare .env di nuovosito ( ho cambiato nome da nuovosito2)
+    questo per nascondere le password sensibili contenute in .env

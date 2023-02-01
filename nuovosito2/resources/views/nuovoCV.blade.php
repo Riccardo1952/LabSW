@@ -41,6 +41,11 @@
     </div>
     {{-- Content ---------------------------------------}}
     <div id="idContent" class="container">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
         @yield('content1')
         @yield('content2')
         @yield('content3')
